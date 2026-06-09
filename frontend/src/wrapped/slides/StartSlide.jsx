@@ -55,7 +55,7 @@ export default function StartSlide({ onStart }) {
         }}
         whileTap={{ scale: 0.97 }}
         whileHover={{ scale: 1.06 }}
-        className="pulse-ring group mt-12 inline-flex items-center gap-3 rounded-full bg-wrapped-cta px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-wrapped-blush shadow-[0_10px_40px_-12px_rgba(225,29,72,0.7)] transition-colors duration-300 hover:bg-wrapped-ctaHover focus:outline-none focus:ring-2 focus:ring-rose-300/60 md:text-base"
+        className="pulse-ring group mt-12 inline-flex max-w-full items-center gap-2.5 whitespace-nowrap rounded-full bg-wrapped-cta px-6 py-3.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-wrapped-blush shadow-[0_10px_40px_-12px_rgba(225,29,72,0.7)] transition-colors duration-300 hover:bg-wrapped-ctaHover focus:outline-none focus:ring-2 focus:ring-rose-300/60 sm:gap-3 sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.18em] md:text-base"
         data-testid="start-wrapped-button"
       >
         <Heart className="h-4 w-4 fill-current" strokeWidth={0} />

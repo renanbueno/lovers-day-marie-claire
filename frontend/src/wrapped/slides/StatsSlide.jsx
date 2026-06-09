@@ -28,7 +28,13 @@ function Counter({ to, label, testId, delay = 0 }) {
       className="flex flex-col items-start"
       data-testid={testId}
     >
-      <span className="font-display text-[68px] font-bold italic leading-none text-wrapped-blush md:text-[96px]">
+      <span
+        className={
+          hasNumber
+            ? "font-display text-[68px] font-bold italic leading-none text-wrapped-blush md:text-[96px]"
+            : "font-display text-[34px] font-bold italic leading-none text-wrapped-blush md:text-[56px]"
+        }
+      >
         {hasNumber ? display.toLocaleString("pt-BR") : to}
       </span>
       <span className="mt-2 text-xs uppercase tracking-[0.34em] text-wrapped-petal/80 md:text-sm">
@@ -47,7 +53,7 @@ export default function StatsSlide() {
 
   return (
     <div
-      className="relative flex h-full w-full flex-col justify-between px-6 pb-16 pt-20 md:px-12"
+      className="relative flex h-full w-full flex-col gap-6 px-6 pb-12 pt-16 md:gap-10 md:px-12 md:pt-20"
       data-testid="stats-slide"
     >
       <motion.div
@@ -68,31 +74,31 @@ export default function StatsSlide() {
         </h2>
       </motion.div>
 
-      <div className="flex flex-col gap-8 md:gap-10">
+      <div className="flex flex-1 flex-col justify-center gap-6 md:gap-10">
         <Counter
           to={days}
           label="Dias juntos"
           testId="stat-item-days"
-          delay={0.35}
+          delay={0.2}
         />
         <Counter
           to={pizzas}
           label="Pizzas divididas"
           testId="stat-item-pizzas"
-          delay={0.65}
+          delay={0.4}
         />
         <Counter
           to={callHours}
           label="Horas em chamadas de vídeo"
           testId="stat-item-calls"
-          delay={0.95}
+          delay={0.6}
         />
       </div>
 
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
+        transition={{ delay: 0.9, duration: 0.8 }}
         className="text-[11px] uppercase tracking-[0.32em] text-wrapped-blush/45"
       >
         Toque para continuar →
