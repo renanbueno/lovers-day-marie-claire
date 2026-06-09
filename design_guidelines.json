@@ -1,0 +1,122 @@
+{
+  "project_context": {
+    "app_type": "interactive_story_experience",
+    "theme": "Dark",
+    "archetype": "Archetype 5: Luxury",
+    "vibe": "Cinematic, intimate, immersive. No generic AI purple gradients. Deep romantic tones.",
+    "stack": ["React", "Framer Motion", "Tailwind CSS"]
+  },
+  "design_system": {
+    "typography": {
+      "heading_font": "Playfair Display",
+      "body_font": "Outfit",
+      "pairing_strategy": "Use Playfair Display (Italicized, large, font-bold) for massive emotional hooks (e.g. text-5xl/text-6xl). Use Outfit (tracking-tight) for stats, progress bars, UI elements, and buttons."
+    },
+    "colors": {
+      "background": {
+        "type": "Shifting Mesh Gradient",
+        "css_classes": "bg-gradient-to-br from-[#1A050A] via-[#4A0E22] to-[#741530]",
+        "texture_instruction": "MANDATORY: Add a CSS SVG noise/grain overlay (opacity 0.08, pointer-events-none, mix-blend-overlay) spanning the screen to remove digital flatness and make it feel like velvet/film."
+      },
+      "text": {
+        "primary": "#FDF2F5",
+        "secondary": "#FCA5A5",
+        "muted": "rgba(253, 242, 245, 0.6)"
+      },
+      "interactive": {
+        "primary_cta": "#E11D48",
+        "primary_cta_hover": "#BE123C",
+        "glass_bg": "rgba(255, 255, 255, 0.05)",
+        "glass_border": "rgba(255, 255, 255, 0.1)",
+        "wrong_answer_bg": "#9F1239"
+      }
+    },
+    "spacing_and_layout": {
+      "global": "Mobile-first responsive. Container must be h-screen w-full overflow-hidden flex flex-col relative.",
+      "safe_areas": "Top padding must account for the stories progress bar (pt-12). Bottom padding (pb-12) for interactive elements."
+    }
+  },
+  "motion_and_interactions": {
+    "global_page_transition": {
+      "initial": { "opacity": 0, "scale": 0.95, "y": 20 },
+      "animate": { "opacity": 1, "scale": 1, "y": 0 },
+      "exit": { "opacity": 0, "scale": 1.05, "y": -20 },
+      "transition": { "duration": 0.6, "ease": [0.22, 1, 0.36, 1] }
+    },
+    "stats_counter": "Use Framer Motion 'useMotionValue', 'useTransform', and 'animate' to run numbers from 0 to final value smoothly.",
+    "shake_error": {
+      "animate": { "x": [-10, 10, -10, 10, 0], "backgroundColor": "#9F1239" },
+      "transition": { "duration": 0.4 }
+    }
+  },
+  "slide_definitions": [
+    {
+      "slide_index": 0,
+      "name": "StartSlide",
+      "layout": "Centered flex column, heavy negative space. 'O Nosso Wrapped' in Playfair Display text-5xl md:text-7xl italic.",
+      "interactions": "Pulsing 'Começar a Retrospectiva' button (animate scale [1, 1.05, 1] infinitely). On click: unlock audio placeholder, advance slide.",
+      "test_ids": {
+        "start_button": "start-wrapped-button"
+      }
+    },
+    {
+      "slide_index": 1,
+      "name": "StatsSlide",
+      "layout": "Staggered vertical list. Header 'Este ano nós fomos longe...' at top.",
+      "interactions": "Numbers count from 0 to final value. Elements stagger fade-in and slide-up.",
+      "placeholders": {
+        "days": "[INSIRA AQUI]",
+        "pizzas": "[INSIRA AQUI]",
+        "calls": "[INSIRA AQUI]"
+      },
+      "test_ids": {
+        "stats_container": "stats-slide",
+        "stat_item_days": "stat-item-days",
+        "stat_item_pizzas": "stat-item-pizzas",
+        "stat_item_calls": "stat-item-calls"
+      }
+    },
+    {
+      "slide_index": 2,
+      "name": "MusicQuizSlide",
+      "layout": "Question heading 'Mas teve uma música que não saiu do nosso repeat...' at top. 3 large crystal-glassmorphism buttons stacked vertically.",
+      "interactions": "Wrong click: Shake animation and bg turns red. Right click: Canvas-confetti overlay, audio volume visual bump, auto-advance after 2.5s.",
+      "placeholders": {
+        "option_1": "[INSIRA AQUI]",
+        "option_2": "[INSIRA AQUI]",
+        "option_3": "[INSIRA AQUI]"
+      },
+      "test_ids": {
+        "quiz_option": "quiz-option-{index}"
+      }
+    },
+    {
+      "slide_index": 3,
+      "name": "PhotosSlide",
+      "layout": "Overlapping polaroid-style rotated divs. Gradient placeholders acting as images with 🤍 centered. Bottom floating 'Te amo' button.",
+      "interactions": "Images animate in with slight rotation (e.g. -6deg, 4deg) and scale. Clicking 'Te amo' triggers raining hearts via canvas-confetti.",
+      "placeholders": {
+        "final_message": "[INSIRA AQUI]"
+      },
+      "test_ids": {
+        "final_message": "final-love-message",
+        "te_amo_button": "te-amo-button"
+      }
+    }
+  ],
+  "global_components": {
+    "stories_progress_bar": {
+      "style": "Absolute top-2 left-0 w-full flex gap-1 px-2 z-50",
+      "behavior": "Each segment maps to a slide. Fills horizontally based on slide duration (default 7s). Tap right to advance, tap left to go back. Pause timer on screen hold/press (if feasible)."
+    },
+    "audio_player": {
+      "behavior": "Invisible placeholder <audio src='[INSIRA AQUI]' loop /> unlocked on first slide interaction."
+    }
+  },
+  "dependencies_to_install": [
+    "framer-motion",
+    "lucide-react",
+    "canvas-confetti"
+  ],
+  "implementation_instructions": "DO NOT USE SHADCN CARDS OR PRE-BUILT UI. Build pure custom HTML/Tailwind + Framer Motion `motion.div` components to maintain fluid, bespoke cinematic transitions. Follow the dark shifting gradient + noise texture strictly. Ensure all textual content uses exactly [INSIRA AQUI]. Keep all files as .js or .jsx. Enforce optical clarity on glassmorphism panels (backdrop-blur-xl)."
+}
