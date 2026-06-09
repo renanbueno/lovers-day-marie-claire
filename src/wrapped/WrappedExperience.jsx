@@ -70,15 +70,9 @@ export default function WrappedExperience() {
     [advance, goBack, slideIndex],
   );
 
-  // Auto-advance timer driven by SLIDE_DURATIONS
-  useEffect(() => {
-    const duration = SLIDE_DURATIONS[slideIndex];
-    if (!Number.isFinite(duration)) return;
-    const t = setTimeout(() => {
-      advance();
-    }, duration);
-    return () => clearTimeout(t);
-  }, [slideIndex, progressKey, advance]);
+  // O auto-avanço foi removido. A transição agora depende 100% de interação do usuário.
+  // A barra de progresso continuará preenchendo visualmente via StoriesProgress.
+
 
   const handleQuizCorrect = useCallback(() => {
     const audio = audioRef.current;
@@ -120,13 +114,15 @@ export default function WrappedExperience() {
       />
 
       {/* Stories progress bar */}
-      <StoriesProgress
-        total={totalSlides}
-        currentIndex={slideIndex}
-        activeDuration={SLIDE_DURATIONS[slideIndex]}
-        progressKey={progressKey}
-        active={progressActive}
-      />
+      {slideIndex > 0 && (
+        <StoriesProgress
+          total={totalSlides - 1}
+          currentIndex={slideIndex - 1}
+          activeDuration={SLIDE_DURATIONS[slideIndex]}
+          progressKey={progressKey}
+          active={progressActive}
+        />
+      )}
 
       {/* Slide content with cinematic transition */}
       <div className="relative z-10 h-full w-full">
