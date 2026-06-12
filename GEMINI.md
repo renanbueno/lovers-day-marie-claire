@@ -1,53 +1,30 @@
-# O Nosso Wrapped 🤍
+# GEMINI.md - O Nosso Wrapped
 
-Uma experiência interativa estilo "Spotify Wrapped" para casais, feita com React, Framer Motion e Tailwind CSS.
+## Visão Geral do Projeto
+"O Nosso Wrapped" é uma aplicação web romântica e interativa, no estilo "Spotify Wrapped", projetada para o Dia dos Namorados. É um projeto puramente estático (Frontend) otimizado para ser leve e visualmente impactante.
 
-## ✨ Características
+- **Stack:** React 19, Framer Motion 11, Tailwind CSS, canvas-confetti, lucide-react.
+- **Fontes:** Playfair Display (display, itálico) + Outfit (UI).
+- **Vibe:** Cinemática, íntima e imersiva. Tons românticos profundos (roxo → rosa → vermelho) com efeito de grão de filme.
 
-- **Navegação Story-style:** Experiência imersiva inspirada nos Stories do Instagram, com barra de progresso visual.
-- **Trilha Sonora Dinâmica:** Músicas diferentes para cada capítulo com transições suaves e sincronia de tempo.
-- **Abertura Imersiva:** Começa com um envelope interativo que, ao ser aberto, inicia a trilha sonora.
-- **Design Cinemático:** Tema dark com gradientes suaves, tipografia de luxo e efeito de grão de filme.
-- **Interativo:** Inclui quizzes, contadores animados e uma carta final personalizada.
-- **Mobile-First:** Otimizado para smartphones.
+## Requisitos de Produto (PRD Integrado)
 
-## 🚀 Como Executar Localmente
+### Experiência do Usuário
+1. **Navegação Estilo Stories:** Barra de progresso no topo e navegação por cliques laterais (Instagram/Spotify).
+2. **Controle Manual:** A barra de progresso é visual (30s), mas o avanço é **manual** via clique para permitir contemplação.
+3. **Tema Visual:** Gradiente escuro cinematográfico com textura de filme (veludo).
+4. **Responsividade:** Mobile-first obrigatório.
+5. **Áudio Sincronizado:** Trilha sonora dinâmica com troca suave (crossfade) e tempos de início (offsets) específicos por slide.
 
-### Instalação
-```bash
-npm install --legacy-peer-deps
-```
-
-### Execução
-```bash
-npm start
-```
-
-## 📖 Como Personalizar
-
-### 1. Fotos e Músicas
-Edite o arquivo `src/wrapped/manifest.js`. Basta adicionar os arquivos na pasta `public/` e atualizar as rotas no manifest:
-- **Imagens:** Coloque em `public/images/`.
-- **Áudio:** Coloque em `public/audio/`.
-
-*Dica: Use nomes de arquivos em minúsculas e sem espaços (ex: `nossa_foto.jpg`).*
-
-### 2. Textos e Estatísticas
-Procure por `[INSIRA AQUI]` nos componentes dentro de `src/wrapped/slides/` para substituir pelas suas próprias estatísticas e mensagens de amor.
-
-## 📦 Deploy (GitHub Pages)
-
-Este projeto já está configurado para deploy automático. Para publicar sua versão:
-
-1. Altere a `homepage` no `package.json` para o seu link.
-2. Execute:
-   ```bash
-   npm run deploy
-   ```
-
----
-Feito com ❤️ para o Dia dos Namorados.
-"destravar" lembranças.
+### Estrutura de Slides (12 Slides)
+- **EnvelopeSlide:** Abertura interativa de um envelope para destravar o áudio.
+- **CoverSlide:** Capa com o título "O Nosso Wrapped".
+- **IntroSlide:** "Onde tudo começou".
+- **StatsSlide:** Contadores animados para estatísticas personalizadas.
+- **TravelSlide:** Carrossel de fotos de viagens (Adele - Chasing Pavements).
+- **QuizSlide:** Quiz interativo de música.
+- **TogetherSlide:** Capítulo "Nós" com polaroids (Velha Infância).
+- **InteractiveSlide:** Interação de "destravar" lembranças.
 - **BeachSlide:** Capítulo "Maresia" com fotos de praia.
 - **RomanceSlide:** Slide elegante com fotos românticas (Taylor Swift - Lover).
 - **MessageSlide:** Mensagem especial dedicada.

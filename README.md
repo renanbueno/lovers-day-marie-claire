@@ -4,23 +4,17 @@ Uma experiência interativa estilo "Spotify Wrapped" para casais, feita com Reac
 
 ## ✨ Características
 
-- **Navegação Story-style:** Experiência imersiva inspirada nos Stories do Instagram.
+- **Navegação Story-style:** Experiência imersiva inspirada nos Stories do Instagram, com barra de progresso visual.
+- **Trilha Sonora Dinâmica:** Músicas diferentes para cada capítulo com transições suaves e sincronia de tempo.
+- **Abertura Imersiva:** Começa com um envelope interativo que, ao ser aberto, inicia a trilha sonora.
 - **Design Cinemático:** Tema dark com gradientes suaves, tipografia de luxo e efeito de grão de filme.
-- **Animações Fluidas:** Slides e elementos animados com Framer Motion.
-- **Interativo:** Inclui quizzes musicais, contadores animados e efeitos especiais (confete e chuva de corações).
-- **Mobile-First:** Projetado para visualização perfeita em dispositivos móveis.
+- **Interativo:** Inclui quizzes, contadores animados e uma carta final personalizada.
+- **Mobile-First:** Otimizado para smartphones.
 
-## 🚀 Como Executar
-
-### Pré-requisitos
-- Node.js instalado.
+## 🚀 Como Executar Localmente
 
 ### Instalação
 ```bash
-# Clone o repositório
-git clone <url-do-repositorio>
-
-# Instale as dependências
 npm install --legacy-peer-deps
 ```
 
@@ -29,33 +23,27 @@ npm install --legacy-peer-deps
 npm start
 ```
 
-## 🛠️ Tecnologias Utilizadas
+## 📖 Como Personalizar
 
-- **React 19**
-- **Framer Motion 11** (Animações)
-- **Tailwind CSS** (Estilização)
-- **Lucide React** (Ícones)
-- **Canvas Confetti** (Efeitos visuais)
+### 1. Fotos e Músicas
+Edite o arquivo `src/wrapped/manifest.js`. Basta adicionar os arquivos na pasta `public/` e atualizar as rotas no manifest:
+- **Imagens:** Coloque em `public/images/`.
+- **Áudio:** Coloque em `public/audio/`.
 
-## 📖 Instruções para Personalização
+*Dica: Use nomes de arquivos em minúsculas e sem espaços (ex: `nossa_foto.jpg`).*
 
-O projeto utiliza o padrão `[INSIRA AQUI]` para facilitar a personalização. Para deixar o Wrapped com a sua cara:
-
-1. Procure por `[INSIRA AQUI]` nos componentes dentro de `src/wrapped/slides/`.
-2. Substitua os textos pelas suas estatísticas e mensagens.
-3. Adicione o caminho da sua música no componente `src/wrapped/WrappedExperience.jsx` na tag `<audio>`.
-4. Substitua os placeholders de fotos no `PhotosSlide.jsx`.
+### 2. Textos e Estatísticas
+Procure por `[INSIRA AQUI]` nos componentes dentro de `src/wrapped/slides/` para substituir pelas suas próprias estatísticas e mensagens de amor.
 
 ## 📦 Deploy (GitHub Pages)
 
-Para hospedar no seu `github.io`:
+Este projeto já está configurado para deploy automático. Para publicar sua versão:
 
-1. Configure o `homepage` no seu `package.json` se necessário.
+1. Altere a `homepage` no `package.json` para o seu link.
 2. Execute:
    ```bash
-   npm run build
+   npm run deploy
    ```
-3. Envie o conteúdo da pasta `build` para o seu repositório.
 
 ---
 Feito com ❤️ para o Dia dos Namorados.
