@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/lovers-day-marie-claire/static/css/main.8c98c2ee.css",
-    "main.js": "/lovers-day-marie-claire/static/js/main.2530d835.js",
+    "main.js": "/lovers-day-marie-claire/static/js/main.cbd63cba.js",
     "index.html": "/lovers-day-marie-claire/index.html",
     "main.8c98c2ee.css.map": "/lovers-day-marie-claire/static/css/main.8c98c2ee.css.map",
-    "main.2530d835.js.map": "/lovers-day-marie-claire/static/js/main.2530d835.js.map"
+    "main.cbd63cba.js.map": "/lovers-day-marie-claire/static/js/main.cbd63cba.js.map"
   },
   "entrypoints": [
     "static/css/main.8c98c2ee.css",
-    "static/js/main.2530d835.js"
+    "static/js/main.cbd63cba.js"
   ]
 }
