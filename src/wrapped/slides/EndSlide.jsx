@@ -70,8 +70,8 @@ export default function EndSlide({ onRestart }) {
         transition={{ delay: 1.4, duration: 0.9 }}
         className="mt-8 max-w-sm font-display text-lg italic leading-relaxed text-wrapped-blush/75 md:text-xl"
       >
-        Até lá, fica essa música tocando —<br />
-        e a gente vai escrevendo o resto.
+        Até lá, fica essa música tocando<br />
+        (roubei todas do seu tiktok).
       </motion.p>
 
       <motion.div
