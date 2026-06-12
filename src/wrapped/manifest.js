@@ -1,48 +1,48 @@
 // Photo manifest — all paths point to files inside /public.
 
 export const START_PHOTOS = [
-  "/images/start/whatsapp_image_2026-06-11_at_20.07.14_2.jpeg", // portrait — usado no IntroSlide
+  "images/start/whatsapp_image_2026-06-11_at_20.07.14_2.jpeg", // portrait — usado no IntroSlide
 ];
 
 export const TRAVEL_PHOTOS = [
-  "/images/travel/whatsapp_image_2026-06-09_at_21.45.26_3.jpeg",
-  "/images/travel/whatsapp_image_2026-06-11_at_20.07.06.jpeg",
-  "/images/travel/whatsapp_image_2026-06-11_at_20.07.06_2.jpeg",
-  "/images/travel/whatsapp_image_2026-06-11_at_20.07.07.jpeg",
-  "/images/travel/whatsapp_image_2026-06-11_at_20.07.07_1.jpeg",
-  "/images/travel/whatsapp_image_2026-06-11_at_20.07.07_2.jpeg",
-  "/images/travel/whatsapp_image_2026-06-11_at_20.07.09_1.jpeg",
-  "/images/travel/whatsapp_image_2026-06-11_at_20.07.13.jpeg",
-  "/images/travel/whatsapp_image_2026-06-11_at_20.07.14.jpeg",
+  "images/travel/whatsapp_image_2026-06-09_at_21.45.26_3.jpeg",
+  "images/travel/whatsapp_image_2026-06-11_at_20.07.06.jpeg",
+  "images/travel/whatsapp_image_2026-06-11_at_20.07.06_2.jpeg",
+  "images/travel/whatsapp_image_2026-06-11_at_20.07.07.jpeg",
+  "images/travel/whatsapp_image_2026-06-11_at_20.07.07_1.jpeg",
+  "images/travel/whatsapp_image_2026-06-11_at_20.07.07_2.jpeg",
+  "images/travel/whatsapp_image_2026-06-11_at_20.07.09_1.jpeg",
+  "images/travel/whatsapp_image_2026-06-11_at_20.07.13.jpeg",
+  "images/travel/whatsapp_image_2026-06-11_at_20.07.14.jpeg",
 ];
 
 export const TOGETHER_PHOTOS = [
-  "/images/together/whatsapp_image_2026-06-09_at_21.45.26.jpeg",
-  "/images/together/whatsapp_image_2026-06-09_at_21.45.26_1.jpeg",
-  "/images/together/whatsapp_image_2026-06-09_at_21.45.26_2.jpeg",
-  "/images/together/whatsapp_image_2026-06-09_at_21.46.42.jpeg",
-  "/images/together/whatsapp_image_2026-06-09_at_21.51.34_8.jpeg",
-  "/images/together/whatsapp_image_2026-06-11_at_20.40.54.jpeg",
-  "/images/together/whatsapp_image_2026-06-11_at_20.40.55.jpeg",
+  "images/together/whatsapp_image_2026-06-09_at_21.45.26.jpeg",
+  "images/together/whatsapp_image_2026-06-09_at_21.45.26_1.jpeg",
+  "images/together/whatsapp_image_2026-06-09_at_21.45.26_2.jpeg",
+  "images/together/whatsapp_image_2026-06-09_at_21.46.42.jpeg",
+  "images/together/whatsapp_image_2026-06-09_at_21.51.34_8.jpeg",
+  "images/together/whatsapp_image_2026-06-11_at_20.40.54.jpeg",
+  "images/together/whatsapp_image_2026-06-11_at_20.40.55.jpeg",
 ];
 
 export const BEACH_PHOTOS = [
-  "/images/beach/whatsapp_image_2026-06-09_at_21.45.27.jpeg",
-  "/images/beach/whatsapp_image_2026-06-09_at_21.45.27_1.jpeg",
-  "/images/beach/whatsapp_image_2026-06-09_at_21.51.34_6.jpeg",
-  "/images/beach/whatsapp_image_2026-06-11_at_20.07.05.jpeg",
-  "/images/beach/whatsapp_image_2026-06-11_at_20.07.10.jpeg",
-  "/images/beach/whatsapp_image_2026-06-11_at_20.07.10_1.jpeg",
+  "images/beach/whatsapp_image_2026-06-09_at_21.45.27.jpeg",
+  "images/beach/whatsapp_image_2026-06-09_at_21.45.27_1.jpeg",
+  "images/beach/whatsapp_image_2026-06-09_at_21.51.34_6.jpeg",
+  "images/beach/whatsapp_image_2026-06-11_at_20.07.05.jpeg",
+  "images/beach/whatsapp_image_2026-06-11_at_20.07.10.jpeg",
+  "images/beach/whatsapp_image_2026-06-11_at_20.07.10_1.jpeg",
 ];
 
 export const ROMANCE_PHOTOS = [
-  "/images/romance/whatsapp_image_2026-06-11_at_20.07.06_1.jpeg",
-  "/images/romance/whatsapp_image_2026-06-11_at_20.07.09.jpeg",
-  "/images/romance/whatsapp_image_2026-06-11_at_20.07.11.jpeg",
-  "/images/romance/whatsapp_image_2026-06-11_at_20.07.11_3.jpeg",
-  "/images/romance/whatsapp_image_2026-06-11_at_20.07.11_4.jpeg",
-  "/images/romance/whatsapp_image_2026-06-11_at_20.07.13_1.jpeg",
-  "/images/romance/whatsapp_image_2026-06-11_at_20.07.14_1.jpeg",
+  "images/romance/whatsapp_image_2026-06-11_at_20.07.06_1.jpeg",
+  "images/romance/whatsapp_image_2026-06-11_at_20.07.09.jpeg",
+  "images/romance/whatsapp_image_2026-06-11_at_20.07.11.jpeg",
+  "images/romance/whatsapp_image_2026-06-11_at_20.07.11_3.jpeg",
+  "images/romance/whatsapp_image_2026-06-11_at_20.07.11_4.jpeg",
+  "images/romance/whatsapp_image_2026-06-11_at_20.07.13_1.jpeg",
+  "images/romance/whatsapp_image_2026-06-11_at_20.07.14_1.jpeg",
 ];
 
 // ───────────────────────────────────────────────────────────────────────────────
