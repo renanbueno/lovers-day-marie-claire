@@ -5,14 +5,17 @@ import StartSlide from "@/wrapped/slides/StartSlide";
 import StatsSlide from "@/wrapped/slides/StatsSlide";
 import MusicQuizSlide from "@/wrapped/slides/MusicQuizSlide";
 import PhotosSlide from "@/wrapped/slides/PhotosSlide";
+import EndSlide from "@/wrapped/slides/EndSlide";
 
-// Duration (ms) for each story slide. The Start slide is gated by user click,
-// so its duration only kicks in AFTER the user presses "Começar a Retrospectiva".
-const SLIDE_DURATIONS = [Infinity, 7500, Infinity, Infinity];
-// Index 0 (start) — waits for user click to unlock audio.
-// Index 1 (stats) — auto-advance after 7.5s.
+// Duration (ms) for each story slide.
+// Embora o auto-avanço tenha sido removido, definimos um tempo visual (10s) 
+// para que a barra de progresso tenha uma animação fluida enquanto o usuário lê.
+const SLIDE_DURATIONS = [0, 10000, 10000, 10000, 0];
+// Index 0 (start) — waits for user click.
+// Index 1 (stats) — 10s visual bar.
 // Index 2 (quiz) — gated by correct answer.
-// Index 3 (photos) — final slide, stays.
+// Index 3 (photos) — 10s visual bar.
+// Index 4 (end) — final letter.
 
 const slideTransition = {
   initial: { opacity: 0, scale: 0.95, y: 20 },
@@ -27,16 +30,27 @@ export default function WrappedExperience() {
   const [progressKey, setProgressKey] = useState(0);
   const audioRef = useRef(null);
 
-  const totalSlides = 4;
+  const totalSlides = 5;
 
   const advance = useCallback(() => {
     setSlideIndex((i) => Math.min(i + 1, totalSlides - 1));
     setProgressKey((k) => k + 1);
-  }, []);
+  }, [totalSlides]);
 
   const goBack = useCallback(() => {
     setSlideIndex((i) => Math.max(i - 1, 0));
     setProgressKey((k) => k + 1);
+  }, []);
+
+  const handleRestart = useCallback(() => {
+    setSlideIndex(0);
+    setStarted(false);
+    setProgressKey((k) => k + 1);
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
   }, []);
 
   const handleStart = useCallback(() => {
@@ -65,14 +79,10 @@ export default function WrappedExperience() {
       const { clientX } = e;
       const width = window.innerWidth;
       if (clientX < width * 0.3) goBack();
-      else advance();
+      else if (slideIndex < totalSlides - 1) advance();
     },
-    [advance, goBack, slideIndex],
+    [advance, goBack, slideIndex, totalSlides],
   );
-
-  // O auto-avanço foi removido. A transição agora depende 100% de interação do usuário.
-  // A barra de progresso continuará preenchendo visualmente via StoriesProgress.
-
 
   const handleQuizCorrect = useCallback(() => {
     const audio = audioRef.current;
@@ -93,13 +103,15 @@ export default function WrappedExperience() {
         return <MusicQuizSlide key="quiz" onCorrect={handleQuizCorrect} />;
       case 3:
         return <PhotosSlide key="photos" />;
+      case 4:
+        return <EndSlide key="end" onRestart={handleRestart} />;
       default:
         return null;
     }
   };
 
   // Decide whether the active slide's progress bar should animate.
-  const progressActive = started && slideIndex > 0;
+  const progressActive = started && slideIndex > 0 && slideIndex < totalSlides - 1;
 
   return (
     <div
@@ -114,9 +126,9 @@ export default function WrappedExperience() {
       />
 
       {/* Stories progress bar */}
-      {slideIndex > 0 && (
+      {slideIndex > 0 && slideIndex < totalSlides - 1 && (
         <StoriesProgress
-          total={totalSlides - 1}
+          total={totalSlides - 2}
           currentIndex={slideIndex - 1}
           activeDuration={SLIDE_DURATIONS[slideIndex]}
           progressKey={progressKey}
