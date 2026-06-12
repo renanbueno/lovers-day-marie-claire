@@ -13,7 +13,7 @@ export default function BeachSlide() {
   useEffect(() => {
     const t = setInterval(() => {
       setIdx((i) => (i + 1) % BEACH_PHOTOS.length);
-    }, 3800);
+    }, 6000);
     return () => clearInterval(t);
   }, []);
 
@@ -68,7 +68,7 @@ export default function BeachSlide() {
             <Waves className="h-3.5 w-3.5" /> Capítulo 07 — Maresia
           </p>
           <h2 className="mt-3 font-display text-3xl italic leading-tight text-wrapped-blush md:text-5xl">
-            Entre o sal,
+            Entre o mar,
             <br />o sol e{" "}
             <span className="bg-gradient-to-r from-rose-200 to-pink-400 bg-clip-text text-transparent">
               você

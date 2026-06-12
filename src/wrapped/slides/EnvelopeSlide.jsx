@@ -134,22 +134,6 @@ export default function EnvelopeSlide({ onOpen }) {
             }}
           />
         </motion.div>
-
-        {/* Brilho sutil percorrendo o envelope — convida ao clique */}
-        <motion.div
-          aria-hidden
-          animate={
-            opened
-              ? { opacity: 0 }
-              : { x: ["-110%", "110%"] }
-          }
-          transition={
-            opened
-              ? { duration: 0.3 }
-              : { duration: 2.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.6 }
-          }
-          className="pointer-events-none absolute inset-y-0 w-1/3 rotate-12 bg-gradient-to-r from-transparent via-white/50 to-transparent blur-md"
-        />
       </motion.button>
     </div>
   );

@@ -101,7 +101,6 @@ export default function StatsSlide() {
           className="font-display text-xl italic text-wrapped-blush/60 md:text-2xl"
           aria-hidden
         >
-          ...
         </motion.span>
       </div>
 
@@ -127,7 +126,7 @@ export default function StatsSlide() {
               idas pra praia
             </>
           }
-          sub="e cada pôr-do-sol valeu por mil"
+          sub="e cada por do sol valeu por mil"
           delay={1.5}
           testId="stat-beach"
         />
@@ -151,8 +150,8 @@ export default function StatsSlide() {
             <>
               <span className="inline-flex items-baseline font-display text-2xl italic text-wrapped-blush md:text-3xl">
                 <InfinityIcon className="h-6 w-6 self-center" strokeWidth={2.5} />
-              </span>{" "}
-              {`"eu te amos"`} ditos no meio do dia
+              </span>{"999999999"}
+              {`"eu te amos"`} ditos (maioria por min claro)
             </>
           }
           sub="e ainda não foi o suficiente"

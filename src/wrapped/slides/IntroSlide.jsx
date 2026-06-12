@@ -60,7 +60,7 @@ export default function IntroSlide() {
         className="mb-2 max-w-md text-center font-display text-lg italic leading-snug text-wrapped-blush/95 md:text-2xl"
       >
         O momento em que demos o primeiro passo
-        rumo a uma vida — feita pra dois.
+        rumo a uma vida juntos.
       </motion.p>
     </div>
   );

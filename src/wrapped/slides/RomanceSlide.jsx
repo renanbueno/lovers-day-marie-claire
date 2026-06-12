@@ -13,7 +13,8 @@ export default function RomanceSlide() {
   useEffect(() => {
     const t = setInterval(() => {
       setIdx((i) => (i + 1) % ROMANCE_PHOTOS.length);
-    }, 4200);
+    }, 6000);
+
     return () => clearInterval(t);
   }, []);
 

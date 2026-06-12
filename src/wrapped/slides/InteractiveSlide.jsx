@@ -9,9 +9,9 @@ import { Heart } from "lucide-react";
 const REASONS = [
   "Pelo seu sorriso que ilumina qualquer dia.",
   "Pelo acelero que meu coração tem toda vez que você me beija.",
-  "Por ser essa pessoa querida, especial — única, no melhor dos sentidos.",
+  "Por ser essa pessoa querida, especial e única, no melhor dos sentidos.",
   "Pela sua beleza, que é imensurável e me desmonta em silêncio.",
-  "Pelo afeto que você me dá — do jeito mais sincero do mundo.",
+  "Pelo afeto que você me dá, do jeito mais sincero do mundo.",
   "Pelo seu jeito único de ser, que não tem em mais ninguém.",
   "Por me escolher, mesmo com as dificuldades, todo santo dia.",
 ];

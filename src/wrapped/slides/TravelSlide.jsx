@@ -13,7 +13,8 @@ export default function TravelSlide() {
   useEffect(() => {
     const t = setInterval(() => {
       setIdx((i) => (i + 1) % TRAVEL_PHOTOS.length);
-    }, 3500);
+    }, 6000);
+
     return () => clearInterval(t);
   }, []);
 

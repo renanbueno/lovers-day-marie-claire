@@ -55,24 +55,23 @@ export default function MessageSlide() {
           data-testid="message-body"
         >
           <p>
-            Em dois anos a gente viveu momentos incríveis — daqueles
-            que eu vou levar comigo pra sempre, guardadinhos no peito.
+            Em dois anos a gente viveu momentos incríveis, daqueles
+            que eu vou levar comigo pra sempre, guardados no coração.
             Foram viagens inesquecíveis, pizzas deliciosas, cafés que
             não acabavam, ligações que confortavam o dia, mensagens
-            cheias de afeto, filmes de tirar o fôlego e momentos juntos
+            de afeto, filmes de tirar o fôlego e momentos juntos
             bons demais pra serem explicados.
           </p>
           <p>
             Obrigado por cada gesto de afeto, por cada carinho silencioso
             que diz mais do que mil palavras. Obrigado por cada vez que
-            você escolheu ficar — e por me ensinar, sem perceber, a ser
+            você escolheu ficar e por me ensinar, sem perceber, a ser
             uma versão um pouco melhor de mim mesmo. Mesmo quando seria
             mais fácil só deixar passar e seguir.
           </p>
           <p>
             Se a gente já chegou até aqui é porque tem muito mais
-            história pra escrever juntos. E eu já tô ansioso pra cada
-            capítulo que ainda vem.
+            história pra escrever juntos.
           </p>
         </motion.div>
 

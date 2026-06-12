@@ -12,7 +12,8 @@ export default function TogetherSlide() {
   useEffect(() => {
     const t = setInterval(() => {
       setIdx((i) => (i + 1) % TOGETHER_PHOTOS.length);
-    }, 3400); // mais devagar como pedido
+    }, 6000); // mais devagar como pedido
+
     return () => clearInterval(t);
   }, []);
 

@@ -44,8 +44,13 @@ export default function WrappedExperience() {
   }, []);
   const handleEnvelopeOpen = useCallback(() => {
     setUnlocked(true);
+    // Configura o áudio para começar em 2:10 (130s) na primeira tela após o envelope
+    const audio = audioRef.current;
+    if (audio) {
+      audio.currentTime = 130;
+    }
     advance();
-  }, [advance]);
+  }, [advance, audioRef]);
   const handleRestart = useCallback(() => {
     setSlideIndex(0);
     setUnlocked(false);
