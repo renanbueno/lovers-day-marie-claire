@@ -13,7 +13,7 @@ export default function BeachSlide() {
   useEffect(() => {
     const t = setInterval(() => {
       setIdx((i) => (i + 1) % BEACH_PHOTOS.length);
-    }, 2200);
+    }, 3800);
     return () => clearInterval(t);
   }, []);
 

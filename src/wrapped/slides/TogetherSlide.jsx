@@ -1,24 +1,24 @@
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { TOGETHER_PHOTOS } from "@/wrapped/manifest";
 
 /**
- * Slide 6 — Together.
- * Polaroid stack of moments from the `together/` folder.
+ * Slide 6 — Together (Capítulo 05 "Nós").
+ * Uma imagem por vez, transicionando lentamente — formato portrait amigável p/ celular.
  */
-const POLAROID_POSITIONS = [
-  { rotate: -8, top: "3%", left: "3%" },
-  { rotate: 6, top: "7%", left: "44%" },
-  { rotate: -3, top: "30%", left: "20%" },
-  { rotate: 9, top: "33%", left: "58%" },
-  { rotate: -5, top: "58%", left: "5%" },
-  { rotate: 4, top: "60%", left: "42%" },
-  { rotate: -7, top: "82%", left: "20%" },
-];
-
 export default function TogetherSlide() {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setIdx((i) => (i + 1) % TOGETHER_PHOTOS.length);
+    }, 3400); // mais devagar como pedido
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <div
-      className="relative flex h-full w-full flex-col px-6 pb-12 pt-16 md:px-12 md:pt-20"
+      className="relative flex h-full w-full flex-col px-6 pb-24 pt-14 md:px-12 md:pt-20"
       data-testid="together-slide"
     >
       <motion.div
@@ -40,48 +40,37 @@ export default function TogetherSlide() {
         </h2>
       </motion.div>
 
-      <div className="relative mt-4 h-[58vh] w-full md:mt-6 md:h-[64vh]">
-        {TOGETHER_PHOTOS.slice(0, POLAROID_POSITIONS.length).map((src, i) => {
-          const pos = POLAROID_POSITIONS[i];
-          return (
+      {/* Polaroid responsiva, uma imagem por vez */}
+      <div className="relative flex flex-1 items-center justify-center py-6">
+        <div className="relative aspect-[3/4] w-[78%] max-w-[300px]">
+          <AnimatePresence>
             <motion.div
-              key={src}
-              initial={{ opacity: 0, y: 30, scale: 0.85, rotate: 0 }}
-              animate={{ opacity: 1, y: 0, scale: 1, rotate: pos.rotate }}
-              transition={{
-                delay: 0.35 + i * 0.13,
-                duration: 0.85,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{ scale: 1.06, rotate: pos.rotate * 0.4, zIndex: 30 }}
-              className="absolute h-[36%] w-[40%] max-w-[180px] rounded-[6px] bg-white/95 p-1.5 shadow-[0_28px_50px_-18px_rgba(0,0,0,0.65)] md:h-[40%] md:w-[26%]"
-              style={{ top: pos.top, left: pos.left }}
-              data-testid="together-polaroid"
+              key={idx}
+              initial={{ opacity: 0, y: 24, scale: 0.92, rotate: -3 }}
+              animate={{ opacity: 1, y: 0, scale: 1, rotate: -2 }}
+              exit={{ opacity: 0, y: -16, scale: 0.96, rotate: 1 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 rounded-md bg-white p-2 shadow-[0_28px_55px_-12px_rgba(0,0,0,0.7)]"
+              data-testid="together-photo"
             >
-              <div className="relative h-[88%] w-full overflow-hidden rounded-[2px] bg-rose-200">
+              <div className="h-full w-full overflow-hidden rounded-[2px]">
                 <img
-                  src={src}
-                  alt={`Juntos ${i + 1}`}
+                  src={TOGETHER_PHOTOS[idx]}
+                  alt={`Nós ${idx + 1}`}
                   className="h-full w-full object-cover"
-                  loading="lazy"
+                  loading="eager"
                 />
               </div>
-              <p className="mt-1 text-center font-display text-[10px] italic text-rose-900/70 md:text-[11px]">
-                nós dois
-              </p>
             </motion.div>
-          );
-        })}
+          </AnimatePresence>
+        </div>
       </div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
-        className="mt-auto text-[11px] uppercase tracking-[0.32em] text-wrapped-blush/45"
-      >
-        toque para continuar →
-      </motion.p>
+      <div className="flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.3em] text-wrapped-blush/70">
+        <span data-testid="together-counter">
+          {String(idx + 1).padStart(2, "0")} / {String(TOGETHER_PHOTOS.length).padStart(2, "0")}
+        </span>
+      </div>
     </div>
   );
 }

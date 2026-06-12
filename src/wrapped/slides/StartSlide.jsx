@@ -93,7 +93,7 @@ export default function CoverSlide({ onContinue }) {
         transition={{ delay: 1.7, duration: 0.8 }}
         className="mt-10 text-[11px] uppercase tracking-[0.32em] text-wrapped-blush/45"
       >
-        coloque o som ♡
+        aumente o som ♡
       </motion.p>
     </div>
   );

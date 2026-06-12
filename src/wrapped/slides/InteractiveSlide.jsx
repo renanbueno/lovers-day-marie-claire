@@ -3,18 +3,17 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 
 /**
- * Slide 7 — Interactive.
- * "Aperte o coração" — cada toque revela um motivo novo pelo qual te amo.
- * Depois de revelar todos, o botão "Próximo" libera o avanço.
+ * Slide 7 — Interactive (Capítulo 06).
+ * Aperte o coração para revelar um motivo. Após todos, libera o avanço.
  */
 const REASONS = [
-  "Pela sua risada que ilumina qualquer dia.",
-  "Pelo café da manhã na cama que ninguém mais faz tão bem.",
-  "Por sempre lembrar das pequenas coisas.",
-  "Por dançar comigo na cozinha sem motivo.",
-  "Por ser meu lugar seguro.",
-  "Por cada \"bom dia\" que parece um abraço.",
-  "Por escolher a gente, todo dia.",
+  "Pelo seu sorriso que ilumina qualquer dia.",
+  "Pelo acelero que meu coração tem toda vez que você me beija.",
+  "Por ser essa pessoa querida, especial — única, no melhor dos sentidos.",
+  "Pela sua beleza, que é imensurável e me desmonta em silêncio.",
+  "Pelo afeto que você me dá — do jeito mais sincero do mundo.",
+  "Pelo seu jeito único de ser, que não tem em mais ninguém.",
+  "Por me escolher, mesmo com as dificuldades, todo santo dia.",
 ];
 
 const HEART_EMOJIS = ["♥", "❤", "💗", "💖", "💘"];
@@ -46,7 +45,6 @@ function burst() {
 
 export default function InteractiveSlide({ onUnlock }) {
   const [revealed, setRevealed] = useState(0);
-
   const allRevealed = revealed >= REASONS.length;
 
   const handleTap = (e) => {
@@ -58,7 +56,7 @@ export default function InteractiveSlide({ onUnlock }) {
 
   return (
     <div
-      className="relative flex h-full w-full flex-col items-center px-6 pb-14 pt-16 text-center md:px-12 md:pt-20"
+      className="relative flex h-full w-full flex-col items-center px-6 pb-24 pt-14 text-center md:px-12 md:pt-20"
       data-testid="interactive-slide"
     >
       <motion.div
@@ -81,8 +79,7 @@ export default function InteractiveSlide({ onUnlock }) {
         </h2>
       </motion.div>
 
-      {/* Heart button + burst layer */}
-      <div className="relative my-6 flex h-[36vh] w-full items-center justify-center md:h-[40vh]">
+      <div className="relative my-5 flex h-[32vh] w-full items-center justify-center md:h-[38vh]">
         <div
           id="interactive-burst-layer"
           aria-hidden
@@ -103,7 +100,6 @@ export default function InteractiveSlide({ onUnlock }) {
         </motion.button>
       </div>
 
-      {/* Counter + revealed reason */}
       <div className="flex min-h-[90px] w-full max-w-md flex-col items-center gap-3">
         <p className="text-[11px] uppercase tracking-[0.3em] text-wrapped-blush/60" data-testid="interactive-counter">
           {revealed} de {REASONS.length}
@@ -123,7 +119,6 @@ export default function InteractiveSlide({ onUnlock }) {
         </motion.p>
       </div>
 
-      {/* Unlock CTA */}
       <motion.button
         type="button"
         onClick={(e) => {

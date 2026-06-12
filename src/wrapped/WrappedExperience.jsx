@@ -1,8 +1,10 @@
 import { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import StoriesProgress from "@/wrapped/StoriesProgress";
+import SongDisplay from "@/wrapped/SongDisplay";
+import AudioPreloader from "@/wrapped/AudioPreloader";
 import useSlideAudio from "@/wrapped/useSlideAudio";
-import { SLIDE_AUDIO } from "@/wrapped/manifest";
+import { SLIDE_AUDIO, SLIDE_SONG, SLIDE_DURATIONS } from "@/wrapped/manifest";
 
 import EnvelopeSlide from "@/wrapped/slides/EnvelopeSlide";
 import CoverSlide from "@/wrapped/slides/CoverSlide";
@@ -17,24 +19,8 @@ import RomanceSlide from "@/wrapped/slides/RomanceSlide";
 import MessageSlide from "@/wrapped/slides/MessageSlide";
 import EndSlide from "@/wrapped/slides/EndSlide";
 
-// ───────────────────────────────────────────────────────────────────────────────
-// Total slides: 12
-//  0  Envelope        — silent, tap to open
-//  1  Cover           — "O Nosso Wrapped" + datas
-//  2  Intro           — start/ photos
-//  3  Stats           — 2 anos, 24 meses, ...
-//  4  Travel          — travel/ photos
-//  5  Quiz            — pergunta interativa
-//  6  Together        — together/ photos
-//  7  Interactive     — pulse-heart reveal
-//  8  Beach           — beach/ photos
-//  9  Romance         — romance/ photos
-//  10 Message         — mensagem final em destaque
-//  11 End             — "Volte ano que vem..." + Sparks
-// ───────────────────────────────────────────────────────────────────────────────
-
 const TOTAL_SLIDES = 12;
-const PROGRESS_TOTAL = 10; // segments shown for slides 1..10
+const PROGRESS_TOTAL = 10; // slides 1..10
 
 const slideTransition = {
   initial: { opacity: 0, scale: 0.96, y: 16 },
@@ -48,22 +34,18 @@ export default function WrappedExperience() {
   const [unlocked, setUnlocked] = useState(false);
 
   const audioUrl = SLIDE_AUDIO[slideIndex] ?? null;
-  const audioRef = useSlideAudio(audioUrl, unlocked);
+  const audioRef = useSlideAudio(audioUrl, unlocked, 0.65); // volume mais alto (foi pedido)
 
   const advance = useCallback(() => {
     setSlideIndex((i) => Math.min(i + 1, TOTAL_SLIDES - 1));
   }, []);
-
   const goBack = useCallback(() => {
-    setSlideIndex((i) => Math.max(i - 1, 1)); // never go back to envelope
+    setSlideIndex((i) => Math.max(i - 1, 1));
   }, []);
-
   const handleEnvelopeOpen = useCallback(() => {
-    // Envelope click is the user gesture that unlocks audio.
     setUnlocked(true);
     advance();
   }, [advance]);
-
   const handleRestart = useCallback(() => {
     setSlideIndex(0);
     setUnlocked(false);
@@ -71,13 +53,10 @@ export default function WrappedExperience() {
 
   const handleScreenTap = useCallback(
     (e) => {
-      // Envelope and Quiz block tap-navigation; End slide has its own controls.
-      if (slideIndex === 0 || slideIndex === 5 || slideIndex === TOTAL_SLIDES - 1) return;
-
-      // Skip if click was on an interactive element
+      // Slides com interação obrigatória: envelope, quiz, interactive, end
+      if (slideIndex === 0 || slideIndex === 5 || slideIndex === 7 || slideIndex === TOTAL_SLIDES - 1) return;
       const target = e.target;
-      if (target && (target.closest?.("button,a,input,[data-no-tap]"))) return;
-
+      if (target && target.closest?.("button,a,input,[data-no-tap]")) return;
       const width = window.innerWidth;
       if (e.clientX < width * 0.28) goBack();
       else if (slideIndex < TOTAL_SLIDES - 1) advance();
@@ -87,37 +66,26 @@ export default function WrappedExperience() {
 
   const renderSlide = () => {
     switch (slideIndex) {
-      case 0:
-        return <EnvelopeSlide key="envelope" onOpen={handleEnvelopeOpen} />;
-      case 1:
-        return <CoverSlide key="cover" onContinue={advance} />;
-      case 2:
-        return <IntroSlide key="intro" />;
-      case 3:
-        return <StatsSlide key="stats" />;
-      case 4:
-        return <TravelSlide key="travel" />;
-      case 5:
-        return <QuizSlide key="quiz" onCorrect={advance} />;
-      case 6:
-        return <TogetherSlide key="together" />;
-      case 7:
-        return <InteractiveSlide key="interactive" onUnlock={advance} />;
-      case 8:
-        return <BeachSlide key="beach" />;
-      case 9:
-        return <RomanceSlide key="romance" />;
-      case 10:
-        return <MessageSlide key="message" />;
-      case 11:
-        return <EndSlide key="end" onRestart={handleRestart} />;
-      default:
-        return null;
+      case 0:  return <EnvelopeSlide key="envelope" onOpen={handleEnvelopeOpen} />;
+      case 1:  return <CoverSlide key="cover" onContinue={advance} />;
+      case 2:  return <IntroSlide key="intro" />;
+      case 3:  return <StatsSlide key="stats" />;
+      case 4:  return <TravelSlide key="travel" />;
+      case 5:  return <QuizSlide key="quiz" onCorrect={advance} />;
+      case 6:  return <TogetherSlide key="together" />;
+      case 7:  return <InteractiveSlide key="interactive" onUnlock={advance} />;
+      case 8:  return <BeachSlide key="beach" />;
+      case 9:  return <RomanceSlide key="romance" />;
+      case 10: return <MessageSlide key="message" />;
+      case 11: return <EndSlide key="end" onRestart={handleRestart} />;
+      default: return null;
     }
   };
 
   const showProgress = slideIndex >= 1 && slideIndex <= 10;
-  const progressCurrent = slideIndex - 1; // 0..9
+  const progressCurrent = slideIndex - 1;
+  const currentDuration = SLIDE_DURATIONS[slideIndex] ?? 12;
+  const currentSong = SLIDE_SONG[slideIndex] ?? null;
 
   return (
     <div
@@ -125,7 +93,9 @@ export default function WrappedExperience() {
       data-testid="wrapped-experience"
       onClick={handleScreenTap}
     >
-      {/* Ambient mesh pan layer */}
+      {/* preloads todas as músicas ao montar */}
+      <AudioPreloader />
+
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-wrapped-mesh animate-mesh-pan animate-hue-drift opacity-90"
@@ -135,6 +105,8 @@ export default function WrappedExperience() {
         <StoriesProgress
           total={PROGRESS_TOTAL}
           currentIndex={progressCurrent}
+          currentDuration={currentDuration}
+          resetKey={slideIndex}
         />
       )}
 
@@ -154,7 +126,9 @@ export default function WrappedExperience() {
         </AnimatePresence>
       </div>
 
-      {/* Single shared audio element managed by useSlideAudio */}
+      {/* Faixa "now playing" — Instagram-like */}
+      {showProgress && <SongDisplay song={currentSong} />}
+
       <audio
         ref={audioRef}
         loop

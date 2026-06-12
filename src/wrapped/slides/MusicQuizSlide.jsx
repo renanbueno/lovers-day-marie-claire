@@ -1,21 +1,15 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
-import { HelpCircle, Check } from "lucide-react";
+import { HeartHandshake, Check } from "lucide-react";
 
-/**
- * Slide 5 — Quiz.
- * A light, playful "do you remember?" question. Tap the right answer
- * to advance. Wrong answers shake & turn red briefly.
- *
- * EDITE livremente a `QUESTION` e as `OPTIONS`.
- */
-const QUESTION = "Onde foi o nosso primeiro encontro?";
+const QUESTION = "Quando foi o nosso primeiro beijo?";
+const SUBTITLE = "(aquele sensacional, que eu me apaixonei)";
 
 const OPTIONS = [
-  { label: "Em um café qualquer", correct: false },
-  { label: "Armazém da Pizza", correct: true },
-  { label: "Numa madrugada de chamada de vídeo", correct: false },
+  { label: "19 de abril de 2024", correct: false },
+  { label: "21 de abril de 2024", correct: true },
+  { label: "24 de abril de 2024", correct: false },
 ];
 
 function fireConfetti() {
@@ -57,7 +51,7 @@ export default function QuizSlide({ onCorrect }) {
 
   return (
     <div
-      className="relative flex h-full w-full flex-col justify-between px-6 pb-14 pt-16 md:px-12 md:pt-20"
+      className="relative flex h-full w-full flex-col justify-between px-6 pb-24 pt-14 md:px-12 md:pt-20"
       data-testid="quiz-slide"
     >
       <motion.div
@@ -67,13 +61,13 @@ export default function QuizSlide({ onCorrect }) {
         className="max-w-md"
       >
         <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.36em] text-wrapped-petal/80">
-          <HelpCircle className="h-3.5 w-3.5" /> Capítulo 04 — Você se lembra?
+          <HeartHandshake className="h-3.5 w-3.5" /> Capítulo 04 — Você lembra?
         </p>
         <h2 className="mt-3 font-display text-3xl italic leading-tight text-wrapped-blush md:text-5xl">
           {QUESTION}
         </h2>
-        <p className="mt-3 text-sm text-wrapped-blush/65 md:text-base">
-          (Sem espiar, vai pelo coração.)
+        <p className="mt-3 font-display text-base italic text-wrapped-blush/75 md:text-lg">
+          {SUBTITLE}
         </p>
       </motion.div>
 
@@ -130,15 +124,6 @@ export default function QuizSlide({ onCorrect }) {
           );
         })}
       </div>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.9, duration: 0.8 }}
-        className="text-[11px] uppercase tracking-[0.32em] text-wrapped-blush/45"
-      >
-        escolha com o coração ♡
-      </motion.p>
     </div>
   );
 }

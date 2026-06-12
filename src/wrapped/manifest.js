@@ -1,9 +1,7 @@
 // Photo manifest — all paths point to files inside /public.
-// Filenames preserved as uploaded by the user.
 
 export const START_PHOTOS = [
-  "/images/start/whatsapp_image_2026-06-09_at_21.45.25.jpeg",
-  "/images/start/whatsapp_image_2026-06-11_at_20.07.14_2.jpeg",
+  "/images/start/whatsapp_image_2026-06-11_at_20.07.14_2.jpeg", // portrait — usado no IntroSlide
 ];
 
 export const TRAVEL_PHOTOS = [
@@ -47,18 +45,93 @@ export const ROMANCE_PHOTOS = [
   "/images/romance/whatsapp_image_2026-06-11_at_20.07.14_1.jpeg",
 ];
 
-// Audio tracks per slide. null = no music (envelope).
-export const SLIDE_AUDIO = {
-  0: null, // envelope (silent)
-  1: "/audio/alianca_1.mp3", // cover ("Aliança" — abertura)
-  2: "/audio/ben_e._king_-_stand_by_me_audio_0.mp3", // intro
-  3: "/audio/tribalistas_-_velha_infancia.mp3", // stats
-  4: "/audio/aonde_quer_que_eu_va.mp3", // travel (Paralamas)
-  5: "/audio/miguel_-_sure_thing_official_video_0.mp3", // quiz
-  6: "/audio/harry_styles_-_sign_of_the_times_official_video_0.mp3", // together
-  7: "/audio/miguel_-_sure_thing_official_video_0.mp3", // interactive (continues from quiz vibe)
-  8: "/audio/aonde_quer_que_eu_va.mp3", // beach (continues from travel)
-  9: "/audio/jeff_buckley_-_lover_you_should've_come_over_audio_4.mp3", // romance
-  10: "/audio/jeff_buckley_-_lover_you_should've_come_over_audio_4.mp3", // message (continues romance)
-  11: "/audio/coldplay_-_sparks_lyrics_0.mp3", // end (Sparks - Coldplay)
+// ───────────────────────────────────────────────────────────────────────────────
+// Trilha sonora por slide — agora com título visível tipo Instagram.
+// ───────────────────────────────────────────────────────────────────────────────
+export const SONGS = {
+  sombr: {
+    url: "/audio/sombr_back_to_friends.mp3",
+    title: "back to friends",
+    artist: "sombr",
+  },
+  alianca: {
+    url: "/audio/alianca_1.mp3",
+    title: "Aliança",
+    artist: "Tribalistas",
+  },
+  standByMe: {
+    url: "/audio/ben_e._king_-_stand_by_me_audio_0.mp3",
+    title: "Stand By Me",
+    artist: "Ben E. King",
+  },
+  velhaInfancia: {
+    url: "/audio/tribalistas_-_velha_infancia.mp3",
+    title: "Velha Infância",
+    artist: "Tribalistas",
+  },
+  aondeQuer: {
+    url: "/audio/aonde_quer_que_eu_va.mp3",
+    title: "Aonde Quer Que Eu Vá",
+    artist: "Os Paralamas do Sucesso",
+  },
+  sureThing: {
+    url: "/audio/miguel_-_sure_thing_official_video_0.mp3",
+    title: "Sure Thing",
+    artist: "Miguel",
+  },
+  signOfTheTimes: {
+    url: "/audio/harry_styles_-_sign_of_the_times_official_video_0.mp3",
+    title: "Sign of the Times",
+    artist: "Harry Styles",
+  },
+  lover: {
+    url: "/audio/jeff_buckley_-_lover_you_should've_come_over_audio_4.mp3",
+    title: "Lover, You Should've Come Over",
+    artist: "Jeff Buckley",
+  },
+  sparks: {
+    url: "/audio/coldplay_-_sparks_lyrics_0.mp3",
+    title: "Sparks",
+    artist: "Coldplay",
+  },
 };
+
+// Slide → song key. null = no music.
+export const SLIDE_SONG_KEY = {
+  0: null,            // Envelope (silent)
+  1: "sombr",         // Cover
+  2: "alianca",       // Intro (onde tudo começou)
+  3: "standByMe",     // Stats
+  4: "aondeQuer",     // Travel
+  5: "sureThing",     // Quiz
+  6: "velhaInfancia", // Together
+  7: "signOfTheTimes",// Interactive
+  8: "aondeQuer",     // Beach (continua de Travel)
+  9: "lover",         // Romance
+  10: "lover",        // Message
+  11: "sparks",       // End
+};
+
+// Duração visual da barra de progresso (segundos) por slide.
+// Ao terminar, a barra para em 100% e ESPERA o usuário interagir.
+export const SLIDE_DURATIONS = {
+  1: 14,   // Cover
+  2: 14,   // Intro
+  3: 16,   // Stats
+  4: 22,   // Travel (carousel)
+  5: 25,   // Quiz
+  6: 22,   // Together
+  7: 25,   // Interactive
+  8: 22,   // Beach
+  9: 22,   // Romance
+  10: 22,  // Message
+};
+
+// Conveniência
+export const SLIDE_AUDIO = Object.fromEntries(
+  Object.entries(SLIDE_SONG_KEY).map(([k, v]) => [k, v ? SONGS[v].url : null]),
+);
+
+export const SLIDE_SONG = Object.fromEntries(
+  Object.entries(SLIDE_SONG_KEY).map(([k, v]) => [k, v ? SONGS[v] : null]),
+);
