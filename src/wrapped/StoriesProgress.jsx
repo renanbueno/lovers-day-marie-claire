@@ -1,17 +1,10 @@
-import { motion } from "framer-motion";
-
 /**
- * Instagram/Spotify Stories-style progress bar at the top.
- * Each segment represents a slide. The active segment animates
- * left-to-right over `activeDuration` ms when `active` is true.
+ * Story-style top progress bar.
+ * Renders a fixed bar with N evenly-spaced segments.
+ * The current segment is "half-filled" to indicate position;
+ * past segments are fully filled. No auto-timing — the user controls pace.
  */
-export default function StoriesProgress({
-  total,
-  currentIndex,
-  activeDuration,
-  progressKey,
-  active,
-}) {
+export default function StoriesProgress({ total, currentIndex }) {
   return (
     <div
       className="absolute left-0 right-0 top-0 z-40 flex gap-1.5 px-3 pt-3"
@@ -21,8 +14,6 @@ export default function StoriesProgress({
       {Array.from({ length: total }).map((_, i) => {
         const isPast = i < currentIndex;
         const isCurrent = i === currentIndex;
-        const finiteDuration = Number.isFinite(activeDuration);
-
         return (
           <div
             key={i}
@@ -30,20 +21,7 @@ export default function StoriesProgress({
             data-testid={`stories-segment-${i}`}
           >
             {isPast && <div className="absolute inset-0 bg-white/90" />}
-            {isCurrent && (
-              <motion.div
-                key={`${i}-${progressKey}`}
-                className="absolute inset-y-0 left-0 bg-white/95"
-                initial={{ width: "0%" }}
-                animate={{
-                  width: active && finiteDuration ? "100%" : isCurrent ? (finiteDuration ? "0%" : "12%") : "0%",
-                }}
-                transition={{
-                  duration: active && finiteDuration ? activeDuration / 1000 : 0.6,
-                  ease: "linear",
-                }}
-              />
-            )}
+            {isCurrent && <div className="absolute inset-y-0 left-0 w-1/2 bg-white/95" />}
           </div>
         );
       })}

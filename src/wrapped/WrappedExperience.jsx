@@ -1,117 +1,123 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import StoriesProgress from "@/wrapped/StoriesProgress";
-import StartSlide from "@/wrapped/slides/StartSlide";
+import useSlideAudio from "@/wrapped/useSlideAudio";
+import { SLIDE_AUDIO } from "@/wrapped/manifest";
+
+import EnvelopeSlide from "@/wrapped/slides/EnvelopeSlide";
+import CoverSlide from "@/wrapped/slides/CoverSlide";
+import IntroSlide from "@/wrapped/slides/IntroSlide";
 import StatsSlide from "@/wrapped/slides/StatsSlide";
-import MusicQuizSlide from "@/wrapped/slides/MusicQuizSlide";
-import PhotosSlide from "@/wrapped/slides/PhotosSlide";
+import TravelSlide from "@/wrapped/slides/TravelSlide";
+import QuizSlide from "@/wrapped/slides/QuizSlide";
+import TogetherSlide from "@/wrapped/slides/TogetherSlide";
+import InteractiveSlide from "@/wrapped/slides/InteractiveSlide";
+import BeachSlide from "@/wrapped/slides/BeachSlide";
+import RomanceSlide from "@/wrapped/slides/RomanceSlide";
+import MessageSlide from "@/wrapped/slides/MessageSlide";
 import EndSlide from "@/wrapped/slides/EndSlide";
 
-// Duration (ms) for each story slide.
-// Embora o auto-avanço tenha sido removido, definimos um tempo visual (10s) 
-// para que a barra de progresso tenha uma animação fluida enquanto o usuário lê.
-const SLIDE_DURATIONS = [0, 10000, 10000, 10000, 0];
-// Index 0 (start) — waits for user click.
-// Index 1 (stats) — 10s visual bar.
-// Index 2 (quiz) — gated by correct answer.
-// Index 3 (photos) — 10s visual bar.
-// Index 4 (end) — final letter.
+// ───────────────────────────────────────────────────────────────────────────────
+// Total slides: 12
+//  0  Envelope        — silent, tap to open
+//  1  Cover           — "O Nosso Wrapped" + datas
+//  2  Intro           — start/ photos
+//  3  Stats           — 2 anos, 24 meses, ...
+//  4  Travel          — travel/ photos
+//  5  Quiz            — pergunta interativa
+//  6  Together        — together/ photos
+//  7  Interactive     — pulse-heart reveal
+//  8  Beach           — beach/ photos
+//  9  Romance         — romance/ photos
+//  10 Message         — mensagem final em destaque
+//  11 End             — "Volte ano que vem..." + Sparks
+// ───────────────────────────────────────────────────────────────────────────────
+
+const TOTAL_SLIDES = 12;
+const PROGRESS_TOTAL = 10; // segments shown for slides 1..10
 
 const slideTransition = {
-  initial: { opacity: 0, scale: 0.95, y: 20 },
+  initial: { opacity: 0, scale: 0.96, y: 16 },
   animate: { opacity: 1, scale: 1, y: 0 },
-  exit: { opacity: 0, scale: 1.05, y: -20 },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  exit: { opacity: 0, scale: 1.04, y: -16 },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
 };
 
 export default function WrappedExperience() {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [started, setStarted] = useState(false);
-  const [progressKey, setProgressKey] = useState(0);
-  const audioRef = useRef(null);
+  const [unlocked, setUnlocked] = useState(false);
 
-  const totalSlides = 5;
+  const audioUrl = SLIDE_AUDIO[slideIndex] ?? null;
+  const audioRef = useSlideAudio(audioUrl, unlocked);
 
   const advance = useCallback(() => {
-    setSlideIndex((i) => Math.min(i + 1, totalSlides - 1));
-    setProgressKey((k) => k + 1);
-  }, [totalSlides]);
+    setSlideIndex((i) => Math.min(i + 1, TOTAL_SLIDES - 1));
+  }, []);
 
   const goBack = useCallback(() => {
-    setSlideIndex((i) => Math.max(i - 1, 0));
-    setProgressKey((k) => k + 1);
+    setSlideIndex((i) => Math.max(i - 1, 1)); // never go back to envelope
   }, []);
 
-  const handleRestart = useCallback(() => {
-    setSlideIndex(0);
-    setStarted(false);
-    setProgressKey((k) => k + 1);
-    const audio = audioRef.current;
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
-    }
-  }, []);
-
-  const handleStart = useCallback(() => {
-    setStarted(true);
-    // Attempt to play background audio (placeholder — replace src in audio tag).
-    const audio = audioRef.current;
-    if (audio && audio.src) {
-      audio.volume = 0.45;
-      audio.play().catch(() => {
-        /* Autoplay may be blocked even after click on some browsers — silent fallthrough. */
-      });
-    }
+  const handleEnvelopeOpen = useCallback(() => {
+    // Envelope click is the user gesture that unlocks audio.
+    setUnlocked(true);
     advance();
   }, [advance]);
 
-  // Tap-to-advance via clicking on edges of the screen (story-style).
+  const handleRestart = useCallback(() => {
+    setSlideIndex(0);
+    setUnlocked(false);
+  }, []);
+
   const handleScreenTap = useCallback(
     (e) => {
-      if (slideIndex === 0) return; // Start slide handled by its own CTA.
-      if (slideIndex === 2) return; // Quiz advances on correct answer.
-      // Avoid hijacking clicks on actual interactive elements
-      const tag = e.target?.tagName?.toLowerCase();
-      if (["button", "a", "input"].includes(tag)) return;
-      if (e.target?.closest?.("button,a,input")) return;
+      // Envelope and Quiz block tap-navigation; End slide has its own controls.
+      if (slideIndex === 0 || slideIndex === 5 || slideIndex === TOTAL_SLIDES - 1) return;
 
-      const { clientX } = e;
+      // Skip if click was on an interactive element
+      const target = e.target;
+      if (target && (target.closest?.("button,a,input,[data-no-tap]"))) return;
+
       const width = window.innerWidth;
-      if (clientX < width * 0.3) goBack();
-      else if (slideIndex < totalSlides - 1) advance();
+      if (e.clientX < width * 0.28) goBack();
+      else if (slideIndex < TOTAL_SLIDES - 1) advance();
     },
-    [advance, goBack, slideIndex, totalSlides],
+    [advance, goBack, slideIndex],
   );
-
-  const handleQuizCorrect = useCallback(() => {
-    const audio = audioRef.current;
-    if (audio && audio.src) {
-      // "audio louder" cue from the brief
-      audio.volume = Math.min(1, (audio.volume || 0.45) + 0.4);
-    }
-    setTimeout(() => advance(), 2400);
-  }, [advance]);
 
   const renderSlide = () => {
     switch (slideIndex) {
       case 0:
-        return <StartSlide key="start" onStart={handleStart} />;
+        return <EnvelopeSlide key="envelope" onOpen={handleEnvelopeOpen} />;
       case 1:
-        return <StatsSlide key="stats" />;
+        return <CoverSlide key="cover" onContinue={advance} />;
       case 2:
-        return <MusicQuizSlide key="quiz" onCorrect={handleQuizCorrect} />;
+        return <IntroSlide key="intro" />;
       case 3:
-        return <PhotosSlide key="photos" />;
+        return <StatsSlide key="stats" />;
       case 4:
+        return <TravelSlide key="travel" />;
+      case 5:
+        return <QuizSlide key="quiz" onCorrect={advance} />;
+      case 6:
+        return <TogetherSlide key="together" />;
+      case 7:
+        return <InteractiveSlide key="interactive" onUnlock={advance} />;
+      case 8:
+        return <BeachSlide key="beach" />;
+      case 9:
+        return <RomanceSlide key="romance" />;
+      case 10:
+        return <MessageSlide key="message" />;
+      case 11:
         return <EndSlide key="end" onRestart={handleRestart} />;
       default:
         return null;
     }
   };
 
-  // Decide whether the active slide's progress bar should animate.
-  const progressActive = started && slideIndex > 0 && slideIndex < totalSlides - 1;
+  const showProgress = slideIndex >= 1 && slideIndex <= 10;
+  const progressCurrent = slideIndex - 1; // 0..9
 
   return (
     <div
@@ -119,24 +125,19 @@ export default function WrappedExperience() {
       data-testid="wrapped-experience"
       onClick={handleScreenTap}
     >
-      {/* Slow ambient mesh pan to add motion to the gradient */}
+      {/* Ambient mesh pan layer */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-wrapped-mesh animate-mesh-pan animate-hue-drift opacity-90"
       />
 
-      {/* Stories progress bar */}
-      {slideIndex > 0 && slideIndex < totalSlides - 1 && (
+      {showProgress && (
         <StoriesProgress
-          total={totalSlides - 2}
-          currentIndex={slideIndex - 1}
-          activeDuration={SLIDE_DURATIONS[slideIndex]}
-          progressKey={progressKey}
-          active={progressActive}
+          total={PROGRESS_TOTAL}
+          currentIndex={progressCurrent}
         />
       )}
 
-      {/* Slide content with cinematic transition */}
       <div className="relative z-10 h-full w-full">
         <AnimatePresence mode="wait">
           <motion.div
@@ -153,13 +154,9 @@ export default function WrappedExperience() {
         </AnimatePresence>
       </div>
 
-      {/*
-        AUDIO PLACEHOLDER — INSIRA AQUI o caminho do seu arquivo de áudio (ex: /audio/nossa-musica.mp3).
-        Tag invisível, destravada no primeiro clique do botão "Começar a Retrospectiva".
-      */}
+      {/* Single shared audio element managed by useSlideAudio */}
       <audio
         ref={audioRef}
-        src=""
         loop
         preload="auto"
         data-testid="wrapped-background-audio"

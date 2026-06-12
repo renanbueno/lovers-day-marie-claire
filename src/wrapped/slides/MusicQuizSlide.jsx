@@ -1,70 +1,64 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
-import { Music2, Check } from "lucide-react";
+import { HelpCircle, Check } from "lucide-react";
 
-// INSIRA AQUI os nomes das músicas e marque a correta com `correct: true`.
+/**
+ * Slide 5 — Quiz.
+ * A light, playful "do you remember?" question. Tap the right answer
+ * to advance. Wrong answers shake & turn red briefly.
+ *
+ * EDITE livremente a `QUESTION` e as `OPTIONS`.
+ */
+const QUESTION = "Onde foi o nosso primeiro encontro?";
+
 const OPTIONS = [
-  { label: "[INSIRA AQUI — Música A]", correct: false },
-  { label: "[INSIRA AQUI — Música B]", correct: true }, // <- música certa
-  { label: "[INSIRA AQUI — Música C]", correct: false },
+  { label: "Em um café qualquer", correct: false },
+  { label: "Armazém da Pizza", correct: true },
+  { label: "Numa madrugada de chamada de vídeo", correct: false },
 ];
 
 function fireConfetti() {
   const defaults = {
     spread: 70,
-    ticks: 200,
+    ticks: 220,
     gravity: 0.9,
     decay: 0.94,
     startVelocity: 35,
     colors: ["#fda4af", "#f43f5e", "#fb7185", "#fecdd3", "#e11d48", "#fff1f2"],
     scalar: 1.1,
   };
-
-  // Burst from center
   confetti({ ...defaults, particleCount: 90, origin: { x: 0.5, y: 0.4 } });
-  // Side bursts
   setTimeout(() => {
     confetti({ ...defaults, particleCount: 60, angle: 60, origin: { x: 0, y: 0.55 } });
     confetti({ ...defaults, particleCount: 60, angle: 120, origin: { x: 1, y: 0.55 } });
   }, 180);
-  // Hearts-ish shower
-  setTimeout(() => {
-    confetti({
-      ...defaults,
-      particleCount: 80,
-      spread: 120,
-      startVelocity: 25,
-      origin: { x: 0.5, y: 0 },
-      gravity: 1.1,
-    });
-  }, 420);
 }
 
-export default function MusicQuizSlide({ onCorrect }) {
+export default function QuizSlide({ onCorrect }) {
   const [wrongIdx, setWrongIdx] = useState(null);
   const [correctIdx, setCorrectIdx] = useState(null);
   const lockedRef = useRef(false);
 
-  const handleClick = (idx) => {
+  const handleClick = (idx, e) => {
+    e?.stopPropagation();
     if (lockedRef.current) return;
     const opt = OPTIONS[idx];
     if (opt.correct) {
       lockedRef.current = true;
       setCorrectIdx(idx);
       fireConfetti();
-      onCorrect?.();
+      setTimeout(() => onCorrect?.(), 1800);
     } else {
       setWrongIdx(idx);
-      // Reset the shake/red state after the animation so user can try another
       setTimeout(() => setWrongIdx(null), 700);
     }
   };
 
   return (
     <div
-      className="relative flex h-full w-full flex-col justify-between px-6 pb-16 pt-20 md:px-12"
-      data-testid="music-quiz-slide"
+      className="relative flex h-full w-full flex-col justify-between px-6 pb-14 pt-16 md:px-12 md:pt-20"
+      data-testid="quiz-slide"
     >
       <motion.div
         initial={{ opacity: 0, y: 18 }}
@@ -73,19 +67,13 @@ export default function MusicQuizSlide({ onCorrect }) {
         className="max-w-md"
       >
         <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.36em] text-wrapped-petal/80">
-          <Music2 className="h-3.5 w-3.5" /> Capítulo 02
+          <HelpCircle className="h-3.5 w-3.5" /> Capítulo 04 — Você se lembra?
         </p>
         <h2 className="mt-3 font-display text-3xl italic leading-tight text-wrapped-blush md:text-5xl">
-          Mas teve uma música
-          <br />
-          que não saiu do nosso{" "}
-          <span className="bg-gradient-to-r from-rose-200 to-pink-400 bg-clip-text text-transparent">
-            repeat
-          </span>
-          .
+          {QUESTION}
         </h2>
-        <p className="mt-4 text-sm text-wrapped-blush/65 md:text-base">
-          Qual você acha que foi?
+        <p className="mt-3 text-sm text-wrapped-blush/65 md:text-base">
+          (Sem espiar, vai pelo coração.)
         </p>
       </motion.div>
 
@@ -97,7 +85,7 @@ export default function MusicQuizSlide({ onCorrect }) {
             <motion.button
               key={idx}
               type="button"
-              onClick={() => handleClick(idx)}
+              onClick={(e) => handleClick(idx, e)}
               disabled={correctIdx !== null}
               initial={{ opacity: 0, y: 16 }}
               animate={
@@ -108,7 +96,7 @@ export default function MusicQuizSlide({ onCorrect }) {
               transition={
                 isWrong
                   ? { duration: 0.45, ease: "easeInOut" }
-                  : { delay: 0.3 + idx * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+                  : { delay: 0.25 + idx * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }
               }
               whileHover={correctIdx === null ? { scale: 1.015 } : {}}
               whileTap={correctIdx === null ? { scale: 0.985 } : {}}
@@ -138,12 +126,6 @@ export default function MusicQuizSlide({ onCorrect }) {
                   {opt.label}
                 </span>
               </span>
-              <Music2
-                className={[
-                  "h-4 w-4 transition-transform duration-500",
-                  isCorrect ? "rotate-12 text-rose-100" : "text-wrapped-blush/40",
-                ].join(" ")}
-              />
             </motion.button>
           );
         })}
@@ -155,7 +137,7 @@ export default function MusicQuizSlide({ onCorrect }) {
         transition={{ delay: 0.9, duration: 0.8 }}
         className="text-[11px] uppercase tracking-[0.32em] text-wrapped-blush/45"
       >
-        Escolha sabiamente ♡
+        escolha com o coração ♡
       </motion.p>
     </div>
   );
