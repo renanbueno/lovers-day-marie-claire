@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import StoriesProgress from "@/wrapped/StoriesProgress";
 import SongDisplay from "@/wrapped/SongDisplay";
@@ -36,6 +36,22 @@ export default function WrappedExperience() {
   const audioUrl = SLIDE_AUDIO[slideIndex] ?? null;
   const audioRef = useSlideAudio(audioUrl, unlocked, 0.65); // volume mais alto (foi pedido)
 
+  // Controle de tempos de início específicos por slide
+  useEffect(() => {
+    if (!unlocked) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Slide 1 (Cover) -> Começa em 2:10 (130s)
+    if (slideIndex === 1) {
+      audio.currentTime = 130;
+    }
+    // Slide 6 (Capítulo 5 - Nós) -> Começa em 20s
+    if (slideIndex === 6) {
+      audio.currentTime = 20;
+    }
+  }, [slideIndex, unlocked, audioRef]);
+
   const advance = useCallback(() => {
     setSlideIndex((i) => Math.min(i + 1, TOTAL_SLIDES - 1));
   }, []);
@@ -44,13 +60,8 @@ export default function WrappedExperience() {
   }, []);
   const handleEnvelopeOpen = useCallback(() => {
     setUnlocked(true);
-    // Configura o áudio para começar em 2:10 (130s) na primeira tela após o envelope
-    const audio = audioRef.current;
-    if (audio) {
-      audio.currentTime = 130;
-    }
     advance();
-  }, [advance, audioRef]);
+  }, [advance]);
   const handleRestart = useCallback(() => {
     setSlideIndex(0);
     setUnlocked(false);

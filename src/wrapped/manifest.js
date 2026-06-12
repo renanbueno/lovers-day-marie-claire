@@ -115,16 +115,16 @@ export const SLIDE_SONG_KEY = {
 // Duração visual da barra de progresso (segundos) por slide.
 // Ao terminar, a barra para em 100% e ESPERA o usuário interagir.
 export const SLIDE_DURATIONS = {
-  1: 60,   // Cover
-  2: 60,   // Intro
-  3: 75,   // Stats
-  4: 90,   // Travel (carousel)
-  5: 90,   // Quiz
-  6: 90,   // Together
-  7: 90,   // Interactive
-  8: 90,   // Beach
-  9: 90,   // Romance
-  10: 80,  // Message
+  1: 30,   // Cover
+  2: 30,   // Intro
+  3: 30,   // Stats
+  4: 30,   // Travel
+  5: 30,   // Quiz
+  6: 30,   // Together
+  7: 30,   // Interactive
+  8: 30,   // Beach
+  9: 30,   // Romance
+  10: 30,  // Message
 };
 
 // Conveniência
