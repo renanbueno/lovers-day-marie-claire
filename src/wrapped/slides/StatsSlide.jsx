@@ -148,9 +148,7 @@ export default function StatsSlide() {
           icon={MessageCircleHeart}
           headline={
             <>
-              <span className="inline-flex items-baseline font-display text-2xl italic text-wrapped-blush md:text-3xl">
-                <InfinityIcon className="h-6 w-6 self-center" strokeWidth={2.5} />
-              </span>{"999999999"}
+              <span className="font-display text-2xl italic text-wrapped-blush md:text-3xl">999999999</span>{" "}
               {`"eu te amos"`} ditos (maioria por min claro)
             </>
           }
