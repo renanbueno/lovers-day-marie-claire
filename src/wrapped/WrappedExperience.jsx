@@ -46,9 +46,17 @@ export default function WrappedExperience() {
     if (slideIndex === 1) {
       audio.currentTime = 130;
     }
-    // Slide 6 (Capítulo 5 - Nós) -> Começa em 20s
+    // Slide 4 (Viagens) -> Adele começa em 46s
+    if (slideIndex === 4) {
+      audio.currentTime = 46;
+    }
+    // Slide 6 (Capítulo 5 - Nós) -> Começa em 26s
     if (slideIndex === 6) {
-      audio.currentTime = 20;
+      audio.currentTime = 26;
+    }
+    // Slide 9 (Romance) -> Lover começa em 44s
+    if (slideIndex === 9) {
+      audio.currentTime = 44;
     }
   }, [slideIndex, unlocked, audioRef]);
 

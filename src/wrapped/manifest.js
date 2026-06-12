@@ -94,6 +94,16 @@ export const SONGS = {
     title: "Sparks",
     artist: "Coldplay",
   },
+  chasingPavements: {
+    url: "/audio/adele_-_chasing_pavements_0.mp3",
+    title: "Chasing Pavements",
+    artist: "Adele",
+  },
+  selfAware: {
+    url: "/audio/temper_city_-_self_aware_official_video.mp3",
+    title: "Self Aware",
+    artist: "Temper City",
+  },
 };
 
 // Slide → song key. null = no music.
@@ -102,13 +112,13 @@ export const SLIDE_SONG_KEY = {
   1: "sombr",         // Cover
   2: "alianca",       // Intro (onde tudo começou)
   3: "standByMe",     // Stats
-  4: "aondeQuer",     // Travel
+  4: "chasingPavements", // Travel
   5: "sureThing",     // Quiz
   6: "velhaInfancia", // Together
   7: "signOfTheTimes",// Interactive
   8: "aondeQuer",     // Beach (continua de Travel)
   9: "lover",         // Romance
-  10: "lover",        // Message
+  10: "selfAware",    // Message
   11: "sparks",       // End
 };
 
