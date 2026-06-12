@@ -1,48 +1,76 @@
-# GEMINI.md - O Nosso Wrapped
+# O Nosso Wrapped 🤍
 
-## Visão Geral do Projeto
-"O Nosso Wrapped" é uma aplicação web romântica e interativa, no estilo "Spotify Wrapped", projetada para o Dia dos Namorados. É um projeto puramente estático (Frontend) otimizado para ser leve e visualmente impactante.
+Uma experiência interativa estilo "Spotify Wrapped" para casais, feita com React, Framer Motion e Tailwind CSS.
 
-- **Stack:** React 19, Framer Motion 11, Tailwind CSS, canvas-confetti, lucide-react.
-- **Fontes:** Playfair Display (display, itálico) + Outfit (UI).
-- **Vibe:** Cinemática, íntima e imersiva. Tons românticos profundos (roxo → rosa → vermelho) com efeito de grão de filme.
+## ✨ Características
 
-## Requisitos de Produto (PRD Integrado)
+- **Navegação Story-style:** Experiência imersiva inspirada nos Stories do Instagram, com barra de progresso visual.
+- **Trilha Sonora Dinâmica:** Músicas diferentes para cada capítulo com transições suaves e sincronia de tempo.
+- **Abertura Imersiva:** Começa com um envelope interativo que, ao ser aberto, inicia a trilha sonora.
+- **Design Cinemático:** Tema dark com gradientes suaves, tipografia de luxo e efeito de grão de filme.
+- **Interativo:** Inclui quizzes, contadores animados e uma carta final personalizada.
+- **Mobile-First:** Otimizado para smartphones.
 
-### Experiência do Usuário
-1. **Navegação Estilo Stories:** Barra de progresso no topo e navegação por cliques laterais (Instagram/Spotify).
-2. **Tema Visual:** Gradiente escuro cinematográfico com textura de filme (veludo).
-3. **Responsividade:** Mobile-first obrigatório.
-4. **Placeholders:** Todo conteúdo textual usa `[INSIRA AQUI]`. Fotos usam gradientes com ícones de coração.
-5. **Áudio:** Elemento de áudio desbloqueado no primeiro clique do usuário.
+## 🚀 Como Executar Localmente
 
-### Estrutura de Slides
-- **StartSlide:** Título pulsante e CTA para começar, desbloqueando o áudio.
-- **StatsSlide:** Contadores animados para estatísticas personalizadas (dias, pizzas, horas de chamada).
-- **MusicQuizSlide:** Quiz de música com feedback visual de acerto/erro e auto-avanço.
-- **PhotosSlide:** Polaroids animadas, mensagem final e chuva de corações ao clicar em "Te amo".
+### Instalação
+```bash
+npm install --legacy-peer-deps
+```
 
-### Backlog / Próximos Passos
-- Substituir placeholders por conteúdo real.
-- Adicionar URLs reais para fotos e música.
-- Implementar configuração via QueryString (P2).
-- Exportação de screenshot do slide final (P2).
+### Execução
+```bash
+npm start
+```
+
+## 📖 Como Personalizar
+
+### 1. Fotos e Músicas
+Edite o arquivo `src/wrapped/manifest.js`. Basta adicionar os arquivos na pasta `public/` e atualizar as rotas no manifest:
+- **Imagens:** Coloque em `public/images/`.
+- **Áudio:** Coloque em `public/audio/`.
+
+*Dica: Use nomes de arquivos em minúsculas e sem espaços (ex: `nossa_foto.jpg`).*
+
+### 2. Textos e Estatísticas
+Procure por `[INSIRA AQUI]` nos componentes dentro de `src/wrapped/slides/` para substituir pelas suas próprias estatísticas e mensagens de amor.
+
+## 📦 Deploy (GitHub Pages)
+
+Este projeto já está configurado para deploy automático. Para publicar sua versão:
+
+1. Altere a `homepage` no `package.json` para o seu link.
+2. Execute:
+   ```bash
+   npm run deploy
+   ```
+
+---
+Feito com ❤️ para o Dia dos Namorados.
+"destravar" lembranças.
+- **BeachSlide:** Capítulo "Maresia" com fotos de praia.
+- **RomanceSlide:** Slide elegante com fotos românticas (Taylor Swift - Lover).
+- **MessageSlide:** Mensagem especial dedicada.
+- **EndSlide:** Carta final de encerramento com tipografia clássica.
+
+### Configuração de Mídia
+- **Fotos e Músicas:** Gerenciadas via `src/wrapped/manifest.js`.
+- **Padronização:** Arquivos em `public/audio` e `public/images` devem seguir o padrão `lowercase_com_underscore.mp3/jpeg`.
 
 ## Estrutura de Diretórios
 - `src/`: Código fonte React.
-  - `src/wrapped/`: Orquestração da experiência.
-  - `src/wrapped/slides/`: Slides individuais.
-- `public/`: Assets estáticos.
-- `design_guidelines.json`: Definição detalhada de cores, animações e tokens de design.
+  - `src/wrapped/`: Orquestração, hooks de áudio e manifest.
+  - `src/wrapped/slides/`: Componentes de cada slide individual.
+- `public/`: Assets estáticos (áudio e imagens).
 
 ## Comandos Principais
 ```bash
-npm install # Use --legacy-peer-deps se necessário
-npm start   # Desenvolvimento
-npm run build # Build para produção (GitHub Pages)
+npm install     # Instalação de dependências
+npm start       # Desenvolvimento (localhost:3000)
+npm run deploy  # Build e Deploy automático para GitHub Pages
 ```
 
 ## Convenções de Desenvolvimento
-- **Design:** Siga o `design_guidelines.json`. Não use bibliotecas de UI pré-prontas; prefira componentes `motion.div` customizados.
-- **Interação:** Tap esquerdo = voltar, Tap direito = avançar.
-- **Placeholders:** Sempre use o padrão `[INSIRA AQUI]`.
+- **Design:** Siga o `design_guidelines.json`. Use `motion.div` para animações cinemáticas.
+- **Interação:** Tap esquerdo (28% da tela) = voltar, Tap direito = avançar.
+- **Áudio:** Novos offsets devem ser configurados no `useEffect` de áudio do `WrappedExperience.jsx`.
