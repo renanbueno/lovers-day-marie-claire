@@ -50,57 +50,57 @@ export const ROMANCE_PHOTOS = [
 // ───────────────────────────────────────────────────────────────────────────────
 export const SONGS = {
   sombr: {
-    url: "/audio/sombr_back_to_friends.mp3",
+    url: "audio/sombr_back_to_friends.mp3",
     title: "back to friends",
     artist: "sombr",
   },
   alianca: {
-    url: "/audio/alianca_1.mp3",
+    url: "audio/alianca_1.mp3",
     title: "Aliança",
     artist: "Tribalistas",
   },
   standByMe: {
-    url: "/audio/ben_e._king_-_stand_by_me_audio_0.mp3",
+    url: "audio/ben_e._king_-_stand_by_me_audio_0.mp3",
     title: "Stand By Me",
     artist: "Ben E. King",
   },
   velhaInfancia: {
-    url: "/audio/tribalistas_-_velha_infancia.mp3",
+    url: "audio/tribalistas_-_velha_infancia.mp3",
     title: "Velha Infância",
     artist: "Tribalistas",
   },
   aondeQuer: {
-    url: "/audio/aonde_quer_que_eu_va.mp3",
+    url: "audio/aonde_quer_que_eu_va.mp3",
     title: "Aonde Quer Que Eu Vá",
     artist: "Os Paralamas do Sucesso",
   },
   sureThing: {
-    url: "/audio/miguel_-_sure_thing_official_video_0.mp3",
+    url: "audio/miguel_-_sure_thing_official_video_0.mp3",
     title: "Sure Thing",
     artist: "Miguel",
   },
   signOfTheTimes: {
-    url: "/audio/harry_styles_-_sign_of_the_times_official_video_0.mp3",
+    url: "audio/harry_styles_-_sign_of_the_times_official_video_0.mp3",
     title: "Sign of the Times",
     artist: "Harry Styles",
   },
   lover: {
-    url: "/audio/jeff_buckley_-_lover_you_should've_come_over_audio_4.mp3",
+    url: "audio/jeff_buckley_-_lover_you_should've_come_over_audio_4.mp3",
     title: "Lover, You Should've Come Over",
     artist: "Jeff Buckley",
   },
   sparks: {
-    url: "/audio/coldplay_-_sparks_lyrics_0.mp3",
+    url: "audio/coldplay_-_sparks_lyrics_0.mp3",
     title: "Sparks",
     artist: "Coldplay",
   },
   chasingPavements: {
-    url: "/audio/adele_-_chasing_pavements_0.mp3",
+    url: "audio/adele_-_chasing_pavements_0.mp3",
     title: "Chasing Pavements",
     artist: "Adele",
   },
   selfAware: {
-    url: "/audio/temper_city_-_self_aware_official_video.mp3",
+    url: "audio/temper_city_-_self_aware_official_video.mp3",
     title: "Self Aware",
     artist: "Temper City",
   },
